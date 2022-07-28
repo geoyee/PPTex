@@ -1,22 +1,24 @@
-Attribute VB_Name = "µ¼³öPPTÄÚÈİµ½Word"
-Sub µ¼³öPPTÄÚÈİµ½Word()
-    Dim ppPres As Presentation 'µ±Ç°PPT
-    Dim objSlide As Object '»ÃµÆÆ¬¶ÔÏó
-    Dim objshapes As Object 'shape¶ÔÏó
-    Dim shap As Object 'shape¶ÔÏó
+Attribute VB_Name = "å¯¼å‡ºPPTå†…å®¹åˆ°Word"
+
+
+Sub å¯¼å‡ºPPTå†…å®¹åˆ°Word()
+    Dim ppPres As Presentation 'å½“å‰PPT
+    Dim objSlide As Object 'å¹»ç¯ç‰‡å¯¹è±¡
+    Dim objshapes As Object 'shapeå¯¹è±¡
+    Dim shap As Object 'shapeå¯¹è±¡
     Dim path_fd_putput As String
-    Dim i_Slide As Integer 'ÓÃÓÚ±éÀú»ÃµÆÆ¬Ò³Êı
-    Dim i_shap As Integer 'ÓÃÓÚ±éÀúÃ¿Ò»Ò³Ç¶ÈëÎÄµµÊı
+    Dim i_Slide As Integer 'ç”¨äºéå†å¹»ç¯ç‰‡é¡µæ•°
+    Dim i_shap As Integer 'ç”¨äºéå†æ¯ä¸€é¡µåµŒå…¥æ–‡æ¡£æ•°
     Dim imgPath As String
-    path_fd_putput = "C:\Users\Geoyee\Desktop\output" 'Êä³öÎÄ¼ş¼Ğ
+    path_fd_putput = "C:\Users\Geoyee\Desktop\output" 'è¾“å‡ºæ–‡ä»¶å¤¹
     Set ppPres = ActivePresentation
-    For i_Slide = 1 To ppPres.Slides.Count '±éÀú»ÃµÆÆ¬
+    For i_Slide = 1 To ppPres.Slides.Count 'éå†å¹»ç¯ç‰‡
         Set objSlide = ppPres.Slides(i_Slide)
         i_shap = 0
-        For Each shap In objSlide.Shapes '±éÀú»ÃµÆÆ¬ÖĞµÄshape¶ÔÏó
-            If shap.Type = 7 Then  'ÄÚÇ¶¶ÔÏó
+        For Each shap In objSlide.Shapes 'éå†å¹»ç¯ç‰‡ä¸­çš„shapeå¯¹è±¡
+            If shap.Type = 7 Then  'å†…åµŒå¯¹è±¡
                 If shap.OLEFormat.ProgID = "Word.Document.8" Or _
-                   shap.OLEFormat.ProgID = "Word.Document.12" Then 'ÅĞ¶ÏÎÄµµÀàĞÍÊÇ·ñÎªword
+                   shap.OLEFormat.ProgID = "Word.Document.12" Then 'åˆ¤æ–­æ–‡æ¡£ç±»å‹æ˜¯å¦ä¸ºword
                     i_shap = i_shap + 1
                     Set objshapes = shap.OLEFormat.Object
                     objshapes.SaveAs2 FileName:=path_fd_putput & "\" & i_Slide & "_" & i_shap & "_ole.docx", _
@@ -26,7 +28,7 @@ Sub µ¼³öPPTÄÚÈİµ½Word()
                         :=False, SaveAsAOCELetter:=False, CompatibilityMode:=15
                         Set objshapes = Nothing
                 End If
-            ElseIf shap.Type = 17 Or shap.Type = 1 Then  'ÎÄ±¾¿ò
+            ElseIf shap.Type = 17 Or shap.Type = 1 Then  'æ–‡æœ¬æ¡†
                 i_shap = i_shap + 1
                 Dim wordDoc As New Word.Document
                 Set woedDoc = Word.Application.Documents.Add
@@ -38,7 +40,7 @@ Sub µ¼³öPPTÄÚÈİµ½Word()
                     :=False, SaveAsAOCELetter:=False, CompatibilityMode:=15
                 wordDoc.Close
                 Set wordDoc = Nothing
-            ElseIf shap.Type = 13 Then  'Í¼Æ¬
+            ElseIf shap.Type = 13 Then  'å›¾ç‰‡
                 i_shap = i_shap + 1
                 Dim wordImg As New Word.Document
                 Set wordImg = Word.Application.Documents.Add
